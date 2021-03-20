@@ -1,0 +1,18 @@
+---
+# tasks file for loadbalancer
+
+- name: "installing the httpd and php"
+  package:
+          name: "{{ item }}"
+          state: present
+  loop:
+          - httpd
+          - php
+- name: "copying the file in document root"
+  template:
+          src: "/var/www/html/index.php"
+          dest: "/var/www/html"
+- name: "starting the services of httpd"
+  service:
+          name: "httpd"
+          state: started
